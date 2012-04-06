@@ -200,6 +200,26 @@ public function install()
 		)
 	);
 	
+	$products_x_fields = array(
+        'id' => array(
+			'type' => 'INT',
+			'constraint' => '11',
+			'auto_increment' => TRUE
+		),
+		'product' => array(
+			'type' => 'INT',
+			'constraint' => '11'
+		),
+		'field' => array(
+			'type' => 'INT',
+			'constraint' => '11'
+		),
+		'value' => array(
+			'type' => 'VARCHAR',
+			'constraint' => '255'
+		)
+	);
+	
 	$thumbnail_width = array(
 		'slug' => 'thumbnail_width',
 		'title' => 'Thumbnail width',
@@ -262,6 +282,14 @@ public function install()
 	$this->dbforge->add_key('id', TRUE);
 	
 	if ( ! $this->dbforge->create_table('fields'))
+	{
+		return FALSE;
+	}
+	
+	$this->dbforge->add_field($products_x_fields);
+	$this->dbforge->add_key('id', TRUE);
+	
+	if ( ! $this->dbforge->create_table('products_x_fields'))
 	{
 		return FALSE;
 	}

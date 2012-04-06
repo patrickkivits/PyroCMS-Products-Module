@@ -128,6 +128,7 @@ class Admin extends Admin_Controller
 		}
 		
 		$this->data->categories =& $this->products_m->get_categories();
+		$this->data->fields = $this->fields_m->get_all();
 		
 		$this->data->products =& $products;
 	
