@@ -8,8 +8,8 @@ $lang['products:edit']			=	'Edit a product';
 
 //labels
 $lang['products:name']			=	'Name';
-$lang['products:categorie']		=	'Categorie';
-$lang['products:no_categorie']	=	'No categorie';
+$lang['products:category']		=	'Categorie';
+$lang['products:no_category']	=	'No categorie';
 $lang['products:description']	=	'Description';
 $lang['products:image']			=	'Image';
 $lang['products:select_image']	=	'Select a image';
@@ -20,6 +20,7 @@ $lang['products:item_list']		=	'Product list';
 $lang['products:products']				=	'Products';
 $lang['products:upload_image']			=	'Upload image';
 $lang['products:delete_image']			=	'Delete image';
+$lang['products:add_category']			=	'Add category';
 
 // Tabs
 $lang['specials:label']		=	'Sepcials';
