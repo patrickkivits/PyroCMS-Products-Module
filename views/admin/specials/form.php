@@ -56,7 +56,7 @@
                         <?php echo form_dropdown('product', $select_products, '');?>
                         <?php endif; ?>
                         <?php endif; ?>
-                        <a href="<?php echo base_url().'admin/products/create'?>" style="padding: 8px; position:absolute;"><?=lang('specials:add_product')?></a>
+                        <?php echo anchor('admin/products/create', lang('specials:add_product'), 'style="padding: 8px; position:absolute;"'); ?>
                     </div>
                     <div id="product-name"></div>
                 </li>

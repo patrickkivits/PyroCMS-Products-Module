@@ -35,7 +35,7 @@
                         <?php echo form_dropdown('category', $select_categories, $products->category);?>
                         <?php endif; ?>
                         <?php endif; ?>
-                        <a href="<?php echo base_url().'admin/products/categories/create'?>" style="padding: 8px; position:absolute;"><?=lang('products:add_category')?></a>
+                        <?php echo anchor('admin/products/categories/create', lang('products:add_category'), 'style="padding: 8px; position:absolute;"'); ?>
                     </div>
                 </li>
                 <li class="<?php echo alternator('', 'even'); ?>">
@@ -67,7 +67,7 @@
                             <a id="delete-image-button" class="btn red" href="#"><?php echo lang('products:delete_image'); ?></a>
                         </div>
                         <div style="float: left;">
-							<form action="<?php echo base_url().'admin/products/ajax_upload_image'?>" method="post" enctype="multipart/form-data" id="ajax-form-upload">
+							<form action="<?php echo base_url().'index.php/admin/products/ajax_upload_image'?>" method="post" enctype="multipart/form-data" id="ajax-form-upload">
                                 <input type="file" name="file"><br />
                                 <input type="submit" value="<?php echo lang('products:upload_image'); ?>">
                             </form>

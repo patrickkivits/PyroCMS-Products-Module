@@ -23,7 +23,7 @@ $lang['products:delete_image']			=	'Delete image';
 $lang['products:add_category']			=	'Add category';
 
 // Tabs
-$lang['specials:label']		=	'Sepcials';
+$lang['specials:label']		=	'Specials';
 $lang['products:label']		=	'Products';
 $lang['categories:label']	=	'Categories';
 
