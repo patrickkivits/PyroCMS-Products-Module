@@ -22,11 +22,6 @@ $lang['products:upload_image']			=	'Upload image';
 $lang['products:delete_image']			=	'Delete image';
 $lang['products:add_category']			=	'Add category';
 
-// Tabs
-$lang['specials:label']		=	'Specials';
-$lang['products:label']		=	'Products';
-$lang['categories:label']	=	'Categories';
-
 // Form
 $lang['products:product_label']		=	'Product';
 $lang['products:image_label']		=	'Image';

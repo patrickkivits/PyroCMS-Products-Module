@@ -22,3 +22,4 @@
 
 $route['products/admin/specials(:any)?'] = 'admin_specials$1';
 $route['products/admin/categories(:any)?'] = 'admin_categories$1';
+$route['products/admin/fields(:any)?'] = 'admin_fields$1';
