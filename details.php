@@ -103,7 +103,7 @@ public function install()
 			'type' => 'VARCHAR',
 			'constraint' => '255'
 		),
-		'categorie' => array(
+		'category' => array(
 			'type' => 'INT',
 			'constraint' => '11',
 			'null' => TRUE
