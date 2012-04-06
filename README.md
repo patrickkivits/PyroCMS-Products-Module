@@ -1,7 +1,7 @@
-h4. PyroCMS Products Module v1.0
+# PyroCMS Products Module v1.0
 
 The Products module allows you to showcase your specials and products by category.
 
-h6. Author
+# Author
 
 * "Patrick Kivits":http://patrickkivits.nl
