@@ -1,4 +1,4 @@
-# PyroCMS Products Module v1.0
+# PyroCMS Products Module
 
 The Products module allows you to showcase your specials and products by category.
 
