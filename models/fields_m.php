@@ -36,4 +36,14 @@ class Fields_m extends MY_Model {
 		return $slug;
 	}
 	
+	public function delete($id)
+	{
+		$this->db
+			->where('field', $id)
+			->delete('products_x_fields');
+		
+		return $this->db->where($this->primary_key, $id)
+			->delete($this->_table);
+	}
+	
 }

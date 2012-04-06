@@ -41,7 +41,7 @@
                 <?php foreach($fields as $field) : ?>
                 	<?php if($field->type == 'text') : ?>
 					<li class="<?php echo alternator('', 'even'); ?>">
-						<label for="<?php echo $field->slug ?>"><?php echo $field->name ?> <span>*</span></label>
+						<label for="<?php echo $field->slug ?>"><?php echo $field->name ?></label>
 						<div class="input"><?php echo form_input('custom_field['.$field->id.']', set_value($field->slug, isset($products->custom_fields[$field->id]) ? $products->custom_fields[$field->id] : ''), 'class="width-15"'); ?></div>
 					</li>
                     <?php endif; ?>
