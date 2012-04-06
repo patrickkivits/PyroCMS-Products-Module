@@ -4,4 +4,4 @@ The Products module allows you to showcase your specials and products by categor
 
 # Author
 
-* "Patrick Kivits":http://patrickkivits.nl
+* Patrick Kivits: http://twitter.com/patrickkivits
