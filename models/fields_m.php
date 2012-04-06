@@ -20,7 +20,8 @@ class Fields_m extends MY_Model {
 	{
 		$to_insert = array(
 			'name' => $input['name'],
-			'slug' => $this->_check_slug($input['name'])
+			'slug' => $this->_check_slug($input['name']),
+			'type' => $input['type']
 		);
 
 		return $this->db->insert($this->_table, $to_insert);

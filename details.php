@@ -193,6 +193,10 @@ public function install()
 		'slug' => array(
 			'type' => 'VARCHAR',
 			'constraint' => '255'
+		),
+		'type' => array(
+			'type' => 'VARCHAR',
+			'constraint' => '255'
 		)
 	);
 	

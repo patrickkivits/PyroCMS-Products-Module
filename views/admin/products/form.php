@@ -38,6 +38,12 @@
                         <?php echo anchor('admin/products/categories/create', lang('products:add_category'), 'style="padding: 8px; position:absolute;"'); ?>
                     </div>
                 </li>
+                <?php foreach($fields as $field) : ?>
+                <li class="<?php echo alternator('', 'even'); ?>">
+                    <label for="<?php echo $field->slug ?>"><?php echo $field->name ?> <span>*</span></label>
+                    <div class="input"><?php echo form_input($field->slug, set_value($field->slug, ''), 'class="width-15"'); ?></div>
+                </li>
+                <?php endforeach; ?>
                 <li class="<?php echo alternator('', 'even'); ?>">
 					<label for="description"><?php echo lang('products:description'); ?></label><br /><br />
 					<div>

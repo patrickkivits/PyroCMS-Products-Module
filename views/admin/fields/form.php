@@ -12,6 +12,13 @@
                     <label for="name"><?php echo lang('fields:name'); ?> <span>*</span></label>
                     <div class="input"><?php echo form_input('name', set_value('name', $fields->name), 'class="width-15"'); ?></div>
                 </li>
+                <li class="<?php echo alternator('', 'even'); ?>">
+               		<label for="type"><?php echo lang('fields:type'); ?> <span>*</span></label>
+                    <div class="input">
+						<?php $options = array('text' => lang('fields:option:text'), 'textarea' => lang('fields:option:textarea')); ?>
+                        <?php echo form_dropdown('type', $options, $fields->type);?>
+                    </div>
+                </li>
             </ul>
 		</div>
 		

@@ -25,6 +25,11 @@ class Admin_fields extends Admin_Controller
 				'field' => 'name',
 				'label' => lang('categories:name'),
 				'rules' => 'trim|max_length[100]|required'
+			),
+			array(
+				'field' => 'type',
+				'label' => lang('categories:type'),
+				'rules' => 'trim|max_length[100]|required'
 			)
 		);
 
