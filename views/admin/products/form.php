@@ -38,6 +38,22 @@
                         <?php echo anchor('admin/products/categories/create', lang('products:add_category'), 'style="padding: 8px; position:absolute;"'); ?>
                     </div>
                 </li>
+                <?php foreach($fields as $field) : ?>
+                	<?php if($field->type == 'text') : ?>
+					<li class="<?php echo alternator('', 'even'); ?>">
+						<label for="<?php echo $field->slug ?>"><?php echo $field->name ?></label>
+						<div class="input"><?php echo form_input('custom_field['.$field->id.']', set_value($field->slug, isset($products->custom_fields[$field->id]) ? $products->custom_fields[$field->id] : ''), 'class="width-15"'); ?></div>
+					</li>
+                    <?php endif; ?>
+                    <?php if($field->type == 'textarea') : ?>
+					<li class="<?php echo alternator('', 'even'); ?>">
+                        <label for="<?php echo $field->slug ?>"><?php echo $field->name ?></label><br /><br />
+                        <div>
+                            <?php echo form_textarea('custom_field['.$field->id.']', set_value($field->slug, isset($products->custom_fields[$field->id]) ? $products->custom_fields[$field->id] : ''), 'class="wysiwyg-simple"'); ?>
+                        </div>
+                    </li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
                 <li class="<?php echo alternator('', 'even'); ?>">
 					<label for="description"><?php echo lang('products:description'); ?></label><br /><br />
 					<div>

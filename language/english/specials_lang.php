@@ -22,11 +22,6 @@ $lang['specials:specials']		=	'Specials';
 $lang['specials:add_product']	=	'Ad product';
 $lang['specials:edit_product']	=	'Edit product';
 
-// Tabs
-$lang['specials:label']		=	'Specials';
-$lang['products:label']		=	'Products';
-$lang['categories:label']	=	'Categories';
-
 // Form
 $lang['specials:content_label']		=	'Special';
 $lang['specials:products_label']	=	'Products';

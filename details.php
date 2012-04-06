@@ -30,6 +30,17 @@ public function info()
 						)
 					)
 			),
+			'fields' => array(
+				'name' 	=> 'fields:label',
+				'uri' 	=> 'admin/products/fields',
+					'shortcuts' => array(
+						'create' => array(
+							'name' 	=> 'fields:create',
+							'uri' 	=> 'admin/products/fields/create',
+							'class' => 'add'
+						)
+					)
+			),
 			'categories' => array(
 				'name' 	=> 'categories:label',
 				'uri' 	=> 'admin/products/categories',
@@ -62,6 +73,7 @@ public function install()
 	$this->dbforge->drop_table('products');
 	$this->dbforge->drop_table('categories');
 	$this->dbforge->drop_table('specials_x_products');
+	$this->dbforge->drop_table('fields');
 	$this->db->delete('settings', array('module' => 'products'));
 
 	$specials = array(
@@ -168,6 +180,46 @@ public function install()
 		),
 	);
 	
+	$fields = array(
+        'id' => array(
+			'type' => 'INT',
+			'constraint' => '11',
+			'auto_increment' => TRUE
+		),
+		'name' => array(
+			'type' => 'VARCHAR',
+			'constraint' => '255'
+		),
+		'slug' => array(
+			'type' => 'VARCHAR',
+			'constraint' => '255'
+		),
+		'type' => array(
+			'type' => 'VARCHAR',
+			'constraint' => '255'
+		)
+	);
+	
+	$products_x_fields = array(
+        'id' => array(
+			'type' => 'INT',
+			'constraint' => '11',
+			'auto_increment' => TRUE
+		),
+		'product' => array(
+			'type' => 'INT',
+			'constraint' => '11'
+		),
+		'field' => array(
+			'type' => 'INT',
+			'constraint' => '11'
+		),
+		'value' => array(
+			'type' => 'VARCHAR',
+			'constraint' => '255'
+		)
+	);
+	
 	$thumbnail_width = array(
 		'slug' => 'thumbnail_width',
 		'title' => 'Thumbnail width',
@@ -226,6 +278,22 @@ public function install()
 		return FALSE;
 	}
 	
+	$this->dbforge->add_field($fields);
+	$this->dbforge->add_key('id', TRUE);
+	
+	if ( ! $this->dbforge->create_table('fields'))
+	{
+		return FALSE;
+	}
+	
+	$this->dbforge->add_field($products_x_fields);
+	$this->dbforge->add_key('id', TRUE);
+	
+	if ( ! $this->dbforge->create_table('products_x_fields'))
+	{
+		return FALSE;
+	}
+	
 	if( ! $this->db->insert('settings', $thumbnail_width))
 	{
 		return FALSE;
@@ -250,6 +318,7 @@ public function uninstall()
 	$this->dbforge->drop_table('products');
 	$this->dbforge->drop_table('categories');
 	$this->dbforge->drop_table('specials_x_products');
+	$this->dbforge->drop_table('fields');
 	
 	$this->db->delete('settings', array('module' => 'products'));
 

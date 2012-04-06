@@ -16,6 +16,7 @@ class Admin extends Admin_Controller
 		parent::__construct();
 		
 		$this->load->model('products_m');
+		$this->load->model('fields_m');
 		$this->load->library('form_validation');
 		$this->lang->load('general');
 		$this->lang->load('products');
@@ -85,9 +86,10 @@ class Admin extends Admin_Controller
 		}
 		
 		$this->data->categories = $this->products_m->get_categories();
+		$this->data->fields = $this->fields_m->get_all();
 		
 		$this->data->products =& $products;
-
+		
 		$this->template->title($this->module_details['name'], lang('products:create'))
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
 			->append_metadata( js('form.js', $this->module) )
@@ -126,6 +128,7 @@ class Admin extends Admin_Controller
 		}
 		
 		$this->data->categories =& $this->products_m->get_categories();
+		$this->data->fields = $this->fields_m->get_all();
 		
 		$this->data->products =& $products;
 	
