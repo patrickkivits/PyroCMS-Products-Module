@@ -7,7 +7,7 @@
 	
 	<?php if (!empty($items)): ?>
 	
-		<table>
+		<table class="sortable-table">
 			<thead>
 				<tr>
 					<th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
@@ -24,7 +24,7 @@
 			</tfoot>
 			<tbody>
 				<?php foreach( $items as $item ): ?>
-				<tr>
+				<tr id="<?php echo $item->id?>">
 					<td><?php echo form_checkbox('action_to[]', $item->id); ?></td>
 					<td><?php echo $item->name; ?></td>
 					<td class="actions">

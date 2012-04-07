@@ -33,7 +33,10 @@ class Admin_fields extends Admin_Controller
 			)
 		);
 
-		$this->template->append_metadata(js('admin.js', $this->module))
+		$this->template
+			->append_metadata(js('jquery.min.js', $this->module))
+			->append_metadata(js('jquery.ui.js', $this->module))
+			->append_metadata(js('admin.js', $this->module))
 			->append_metadata(css('admin.css', $this->module));
 	}
 
@@ -125,5 +128,10 @@ class Admin_fields extends Admin_Controller
 			$this->fields_m->delete($id);
 		}
 		redirect('admin/'.$this->module.'/fields');
+	}
+	
+	public function order()
+	{
+		$this->fields_m->order($this->input->post('order'));
 	}
 }

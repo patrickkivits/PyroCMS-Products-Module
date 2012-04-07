@@ -74,6 +74,7 @@ public function install()
 	$this->dbforge->drop_table('categories');
 	$this->dbforge->drop_table('specials_x_products');
 	$this->dbforge->drop_table('fields');
+	$this->dbforge->drop_table('products_x_fields');
 	$this->db->delete('settings', array('module' => 'products'));
 
 	$specials = array(
@@ -197,7 +198,11 @@ public function install()
 		'type' => array(
 			'type' => 'VARCHAR',
 			'constraint' => '255'
-		)
+		),
+		'order' => array(
+			'type' => 'INT',
+			'constraint' => '11'
+		),
 	);
 	
 	$products_x_fields = array(
@@ -319,6 +324,7 @@ public function uninstall()
 	$this->dbforge->drop_table('categories');
 	$this->dbforge->drop_table('specials_x_products');
 	$this->dbforge->drop_table('fields');
+	$this->dbforge->drop_table('products_x_fields');
 	
 	$this->db->delete('settings', array('module' => 'products'));
 
