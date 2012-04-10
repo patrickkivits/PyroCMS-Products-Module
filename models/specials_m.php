@@ -15,6 +15,18 @@ class Specials_m extends MY_Model {
 		$this->_table = 'specials';
 	}
 	
+	public function get_current()
+	{
+		$this->db->from($this->_table)
+			->where('start <=', date('Y-m-d'))
+			->where('end >=', date('Y-m-d'));
+			
+		$query = $this->db->get();
+			
+		return $query->result();
+
+	}
+	
 	//create a new item
 	public function create($input)
 	{
@@ -121,7 +133,7 @@ class Specials_m extends MY_Model {
 	public function get_special_products($special = 0)
 	{
 		$this->db
-			->select('s.id, s.old_price, s.new_price, p.name, c.name as category_name')
+			->select('s.id, s.old_price, s.new_price, p.name, c.name as category_name, p.id as product_id')
 			->from('specials_x_products as s')
 			->where('s.special', $special)
 			->join('products as p', 'p.id = s.product')

@@ -24,11 +24,11 @@
                 </li>
                 <li class="<?php echo alternator('', 'even'); ?>">
                     <label for="start"><?php echo lang('specials:start'); ?> <span>*</span></label>
-                    <div class="input datetime_input"><?php echo form_input('start', $specials->start ? date("d-m-Y", strtotime($specials->start)) : '', 'maxlength="10" class="text width-20 datepicker"'); ?></div>
+                    <div class="input datetime_input"><?php echo form_input('start', $specials->start ? date($this->settings->date_format, strtotime($specials->start)) : '', 'maxlength="10" class="text width-20 datepicker"'); ?></div>
                 </li>
                 <li class="<?php echo alternator('', 'even'); ?>">
                     <label for="end"><?php echo lang('specials:end'); ?> <span>*</span></label>
-                    <div class="input datetime_input"><?php echo form_input('end', $specials->end ? date("d-m-Y", strtotime($specials->end)) : '', 'maxlength="10" class="text width-20 datepicker"'); ?></div>
+                    <div class="input datetime_input"><?php echo form_input('end', $specials->end ? date($this->settings->date_format, strtotime($specials->end)) : '', 'maxlength="10" class="text width-20 datepicker"'); ?></div>
                 </li>
                 <li class="<?php echo alternator('', 'even'); ?>">
 					<label for="description"><?php echo lang('specials:description'); ?></label><br /><br />

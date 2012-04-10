@@ -25,4 +25,8 @@ $lang['specials:edit_product']	=	'Wijzig product';
 // Form
 $lang['specials:content_label']		=	'Aanbieding';
 $lang['specials:products_label']	=	'Producten';
+
+// Frontend
+$lang['specials:view_archive']	=	'Bekijk archief';
+$lang['specials:view_current']	=	'Bekijk huidige aanbiedingen';
 ?>
