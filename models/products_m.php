@@ -31,8 +31,10 @@ class Products_m extends MY_Model {
 	public function get($id)
 	{
 		$this->db
-			->from('products')
-			->where('id', $id);
+			->select('p.*, c.name as category_name')
+			->from('products as p')
+			->join('categories as c', 'c.id = p.category', 'left')
+			->where('p.id', $id);
 			
 		$query = $this->db->get();
 		$product = $query->row();

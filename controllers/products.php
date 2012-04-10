@@ -14,6 +14,8 @@ class Products extends Public_Controller
 	{
 		parent::__construct();
 		$this->load->model('products_m');
+		$this->load->model('fields_m');
+		$this->lang->load('general');
 		$this->lang->load('products');
 	}
 
@@ -39,6 +41,29 @@ class Products extends Public_Controller
 
 		$this->template->title($this->module_details['name'], lang('products:label'))
 			->build('index', $data);
+	}
+	
+	public function product()
+	{
+		$data->items = $this->products_m->get($this->uri->segment(3));
+			
+		if (count($data->items))
+		{
+			$data->items_exist = TRUE;
+		}
+		else
+		{
+			$data->items_exist = FALSE;
+		}
+		
+//		echo "<pre>";
+//		print_r($data);
+//		die();
+
+		$data->fields = $this->fields_m->get_all();
+
+		$this->template->title($this->module_details['name'], '')
+			->build('product', $data);
 	}
 	
 	public function category()

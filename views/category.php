@@ -1,29 +1,29 @@
 <div class="products-container">
 
-	{{ if items_exist == false }}
-    	<h1><a href="<? echo base_url() . $this->module?>/categories">{{ helper:lang line="categories:label" }}</a> &raquo; {{ helper:lang line="products:no_items" }}</h1>
-		<p>{{ helper:lang line="products:no_items" }}</p>
-	{{ else }}
+	<?php if(!$items_exist) : ?>
+    	<h1><a href="<? echo base_url().$this->module?>/categories"><?php echo lang('categories:label') ?></a> &raquo; <?php echo lang('products:no_items') ?></h1>
+		<p><?php echo lang('products:no_items') ?></p>
+	<?php else : ?>
 		<div class="products-data">
-        	{{ items }}<h1><a href="<? echo base_url() . $this->module?>/categories">{{ helper:lang line="categories:label" }}</a> &raquo; {{ category_name }}</h1>{{ /items }}
+        	<h1><a href="<? echo base_url().$this->module?>/categories"><?php echo lang('categories:label') ?></a> &raquo; <?php echo $items[0]->category_name ?></h1>
 			<table cellpadding="0" cellspacing="0">
 				<tr>
-					<th width="25%">{{ helper:lang line="products:name" }}</th>
-                    <th width="25%">{{ helper:lang line="products:description" }}</th>
-                    <th width="25%">{{ helper:lang line="products:image" }}</th>
+					<th><?php echo lang('products:name') ?></th>
+                    <th><?php echo lang('products:description') ?></th>
+                    <th><?php echo lang('products:image') ?></th>
 				</tr>
-				{{ items }}
+				<?php foreach($items as $item) : ?>
 				<tr>
-					<td width="25%">{{ name }}</td>
-                    <td width="25%">{{ description }}</td>
-                    <td width="25%">{{ if thumbnail }}<img src="<?php echo base_url().'uploads/default/products/'?>{{ thumbnail }}" alt="{{ name }}" />{{ endif }}</td>
+					<td><?php echo $item->name ?></td>
+                    <td><?php echo $item->description ?></td>
+                    <td><?php if($item->thumbnail) : ?><img src="<?php echo base_url().'uploads/default/products/'.$item->thumbnail ?>" alt="<?php echo $item->name ?>" /><?php endif; ?></td>
 				</tr>
-				{{ /items }}
+				<?php endforeach; ?>
 			</table>
 		</div>
 	
 		{{ pagination:links }}
 	
-	{{ endif }}
+	<?php endif; ?>
 	
 </div>

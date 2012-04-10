@@ -1,29 +1,30 @@
 <div class="products-container">
 
-	{{ if items_exist == false }}
-		<p>{{ helper:lang line="specials:no_items" }}</p>
-	{{ else }}
+	<?php if(!$items_exist) : ?>
+		<p><?php echo lang('specials:no_items') ?></p>
+	<?php else : ?>
+    
 		<div class="products-data">
 			<table cellpadding="0" cellspacing="0">
 				<tr>
-					<th width="25%">{{ helper:lang line="specials:name" }}</th>
-					<th width="25%">{{ helper:lang line="specials:start" }}</th>
-                    <th width="25%">{{ helper:lang line="specials:end" }}</th>
-                    <th width="25%">{{ helper:lang line="specials:description" }}</th>
+					<th><?php echo lang('specials:name') ?></th>
+					<th><?php echo lang('specials:start') ?></th>
+                    <th><?php echo lang('specials:end') ?></th>
+                    <th><?php echo lang('specials:description') ?></th>
 				</tr>
-				{{ items }}
+				<?php foreach($items as $item) : ?>
 				<tr>
-					<td width="25%">{{ name }}</td>
-					<td width="25%">{{ start }}</td>
-                    <td width="25%">{{ end }}</td>
-                    <td width="25%">{{ description }}</td>
+					<td><?php echo $item->name ?></td>
+					<td><?php echo $item->start ?></td>
+                    <td><?php echo $item->end ?></td>
+                    <td><?php echo $item->description ?></td>
 				</tr>
-				{{ /items }}
+				<?php endforeach; ?>
 			</table>
 		</div>
 	
 		{{ pagination:links }}
 	
-	{{ endif }}
+	<?php endif; ?>
 	
 </div>

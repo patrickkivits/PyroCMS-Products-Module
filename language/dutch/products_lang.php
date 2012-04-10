@@ -22,11 +22,6 @@ $lang['products:upload_image']			=	'Upload afbeelding';
 $lang['products:delete_image']			=	'Verwijder afbeelding';
 $lang['products:add_category']			=	'Voeg categorie toe';
 
-// Tabs
-$lang['specials:label']		=	'Aanbiedingen';
-$lang['products:label']		=	'Producten';
-$lang['categories:label']	=	'Categorieën';
-
 // Form
 $lang['products:product_label']		=	'Product';
 $lang['products:image_label']		=	'Afbeelding';
