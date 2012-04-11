@@ -247,7 +247,7 @@ class Admin extends Admin_Controller
 				'thumbnail' => $upload_data['raw_name'].'_thumb'.$upload_data['file_ext'],
 				'image' => $upload_data['raw_name'].$upload_data['file_ext'],
 				'ext' => $upload_data['file_ext'],
-				'upload_path' => base_url().'uploads/default/'.$this->module.'/'
+				'upload_path' => base_url().'uploads/'.SITE_REF.'/'.$this->module.'/'
 			);
 			
 			echo json_encode($json_data);
