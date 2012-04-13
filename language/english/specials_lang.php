@@ -25,4 +25,8 @@ $lang['specials:edit_product']	=	'Edit product';
 // Form
 $lang['specials:content_label']		=	'Special';
 $lang['specials:products_label']	=	'Products';
+
+// Frontend
+$lang['specials:view_archive']	=	'View archive';
+$lang['specials:view_current']	=	'View current specials';
 ?>

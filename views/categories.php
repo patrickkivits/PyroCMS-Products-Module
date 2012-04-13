@@ -1,25 +1,26 @@
 <div class="products-container">
 
-	{{ if items_exist == false }}
-		<p>{{ helper:lang line="products:no_items" }}</p>
-	{{ else }}
-		<div class="products-data">
-			<table cellpadding="0" cellspacing="0">
-				<tr>
-					<th>{{ helper:lang line="categories:name" }}</th>
-                    <th>{{ helper:lang line="categories:description" }}</th>
-				</tr>
-				{{ items }}
-				<tr>
-					<td><a href="<? echo base_url() . $this->module?>/category/{{ id }}">{{ name }}</a></td>
-                    <td>{{ description }}</td>
-				</tr>
-				{{ /items }}
-			</table>
-		</div>
-	
-		{{ pagination:links }}
-	
-	{{ endif }}
+	<?php if(!$items_exist) : ?>
+		<p><?php echo lang('products:no_items') ?></p>
+	<?php else : ?>
+    
+    <div class="products-data">
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th><?php echo lang('categories:name') ?></th>
+                <th><?php echo lang('categories:description') ?></th>
+            </tr>
+            <?php foreach($items as $item) : ?>
+            <tr>
+                <td><a href="<? echo base_url() . $this->module?>/category/<?php echo $item->id ?>"><?php echo $item->name ?></a></td>
+                <td><?php echo $item->description ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+
+    {{ pagination:links }}
+    
+    <?php endif; ?>
 	
 </div>

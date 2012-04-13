@@ -78,15 +78,15 @@
 					<div style="clear: both; height: <?php echo $this->settings->thumbnail_height ?>;">
                     	<div style="float: left;">
                             <div id="thumbnail" style="border: 1px solid #D3D3D3; border-radius: 5px 5px 5px 5px; padding: 5px; width: <?php echo $this->settings->thumbnail_width ?>; margin-right: 10px;">
-                                <img src="<?php echo $products->thumbnail ? base_url().'uploads/default/products/'.$products->thumbnail : 'http://placehold.it/'.$this->settings->thumbnail_width.'x'.$this->settings->thumbnail_height ?>" alt="<?php echo lang('products:image'); ?>" />
+                                <img src="<?php echo $products->thumbnail ? base_url().'uploads/'.SITE_REF.'/'.$this->module.'/'.$products->thumbnail : 'http://placehold.it/'.$this->settings->thumbnail_width.'x'.$this->settings->thumbnail_height ?>" alt="<?php echo lang('products:image'); ?>" />
                             </div><br />
                             <a id="delete-image-button" class="btn red" href="#"><?php echo lang('products:delete_image'); ?></a>
                         </div>
                         <div style="float: left;">
-							<form action="<?php echo base_url().'index.php/admin/products/ajax_upload_image'?>" method="post" enctype="multipart/form-data" id="ajax-form-upload">
+                        	<?php echo form_open_multipart(base_url().'index.php/admin/'.$this->module.'/ajax_upload_image', 'id="ajax-form-upload"'); ?>
                                 <input type="file" name="file"><br />
                                 <input type="submit" value="<?php echo lang('products:upload_image'); ?>">
-                            </form>
+                            <?php echo form_close(); ?>
                             
                             <div class="progress">
                                 <div class="bar"></div >

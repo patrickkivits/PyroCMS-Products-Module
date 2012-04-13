@@ -31,8 +31,10 @@ class Products_m extends MY_Model {
 	public function get($id)
 	{
 		$this->db
-			->from('products')
-			->where('id', $id);
+			->select('p.*, c.name as category_name')
+			->from('products as p')
+			->join('categories as c', 'c.id = p.category', 'left')
+			->where('p.id', $id);
 			
 		$query = $this->db->get();
 		$product = $query->row();
@@ -90,7 +92,7 @@ class Products_m extends MY_Model {
 		
 		$this->db->insert($this->_table, $to_insert);
 		
-		if($input['custom_field']) {
+		if(isset($input['custom_field'])) {
 			
 			$product = $this->db->insert_id();
 			foreach($input['custom_field'] as $field => $value) {
@@ -130,7 +132,7 @@ class Products_m extends MY_Model {
 		$this->db->where('id', $id);
 		$this->db->update($this->_table, $to_insert);
 		
-		if($input['custom_field']) {
+		if(isset($input['custom_field'])) {
 	
 			foreach($input['custom_field'] as $field => $value) {
 				$to_insert = array(
@@ -149,6 +151,15 @@ class Products_m extends MY_Model {
 	public function get_categories()
 	{
 		return $this->db->get('categories')->result();
+	}
+	
+	public function get_fields()
+	{
+		$this->db->from('fields')
+			->order_by('order', 'asc');
+		
+		$query = $this->db->get();
+		return $query->result();	
 	}	
 	
 }

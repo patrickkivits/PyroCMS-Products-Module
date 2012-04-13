@@ -46,7 +46,8 @@ $(document).ready(function() {
 	   
 	   $('a#delete-product').live("click", function(e){
 			$.post(SITE_URL + 'admin/products/specials/ajax_delete_product/', {
-				id: $(this).data('id')
+				id: $(this).data('id'),
+				csrf_hash_name: $.cookie("csrf_cookie_name")
 			},
 			function(data) {
 				// Reload the products
@@ -70,7 +71,8 @@ $(document).ready(function() {
 					special: inputSpecial,
 					product: inputProduct,
 					old_price: inputOldPrice,
-					new_price: inputNewPrice
+					new_price: inputNewPrice,
+					csrf_hash_name: $.cookie("csrf_cookie_name")
 				},
 				function(data) {
 					// Reload the products
@@ -94,7 +96,8 @@ $(document).ready(function() {
 				$.post(SITE_URL + 'admin/products/specials/ajax_edit_product/', {
 					id: inputSpecialxProduct,
 					old_price: inputOldPrice,
-					new_price: inputNewPrice
+					new_price: inputNewPrice,
+					csrf_hash_name: $.cookie("csrf_cookie_name")
 				},
 				function(data) {
 					// Reload the products

@@ -2,7 +2,7 @@
 
 class Module_Products extends Module {
 
-public $version = '1.1';
+public $version = '2.1';
 
 public function info()
 {
@@ -76,153 +76,51 @@ public function install()
 	$this->dbforge->drop_table('fields');
 	$this->dbforge->drop_table('products_x_fields');
 	$this->db->delete('settings', array('module' => 'products'));
-
-	$specials = array(
-        'id' => array(
-			'type' => 'INT',
-			'constraint' => '11',
-			'auto_increment' => TRUE
-		),
-		'name' => array(
-			'type' => 'VARCHAR',
-			'constraint' => '255'
-		),
-		'slug' => array(
-			'type' => 'VARCHAR',
-			'constraint' => '255'
-		),
-		'start' => array(
-			'type' => 'DATETIME'
-		),
-		'end' => array(
-			'type' => 'DATETIME'
-		),
-		'description' => array(
-			'type' => 'TEXT'
-		),
-	);
 	
-	$products = array(
-        'id' => array(
-			'type' => 'INT',
-			'constraint' => '11',
-			'auto_increment' => TRUE
+	$tables = array(
+		'specials' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
+			'name' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
+			'slug' => array('type' => 'VARCHAR', 'constraint' => 20, 'default' => '', 'unique' => true),
+			'start' => array('type' => 'DATETIME'),
+			'end' => array('type' => 'DATETIME'),
+			'description' => array('type' => 'TEXT'),
 		),
-		'name' => array(
-			'type' => 'VARCHAR',
-			'constraint' => '255'
+		'products' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
+			'name' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
+			'slug' => array('type' => 'VARCHAR', 'constraint' => 20, 'default' => '', 'unique' => true),
+			'category' => array('type' => 'INT', 'constraint' => 11),
+			'thumbnail' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
+			'image' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
+			'description' => array('type' => 'TEXT'),
 		),
-		'slug' => array(
-			'type' => 'VARCHAR',
-			'constraint' => '255'
+		'categories' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
+			'name' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
+			'slug' => array('type' => 'VARCHAR', 'constraint' => 20, 'default' => '', 'unique' => true),
+			'description' => array('type' => 'TEXT'),
 		),
-		'category' => array(
-			'type' => 'INT',
-			'constraint' => '11',
-			'null' => TRUE
+		'fields' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
+			'name' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
+			'slug' => array('type' => 'VARCHAR', 'constraint' => 20, 'default' => '', 'unique' => true),
+			'type' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
+			'order' => array('type' => 'INT', 'constraint' => 11),
 		),
-		'thumbnail' => array(
-			'type' => 'VARCHAR',
-			'constraint' => '255'
+		'specials_x_products' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
+			'special' => array('type' => 'INT', 'constraint' => 11),
+			'product' => array('type' => 'INT', 'constraint' => 11),
+			'old_price' => array('type' => 'FLOAT(8,2)'),
+			'new_price' => array('type' => 'FLOAT(8,2)'),
 		),
-		'image' => array(
-			'type' => 'VARCHAR',
-			'constraint' => '255'
+		'products_x_fields' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
+			'product' => array('type' => 'INT', 'constraint' => 11),
+			'field' => array('type' => 'INT', 'constraint' => 11),
+			'value' => array('type' => 'TEXT'),
 		),
-		'description' => array(
-			'type' => 'TEXT'
-		),
-	);
-	
-	$categories = array(
-        'id' => array(
-			'type' => 'INT',
-			'constraint' => '11',
-			'auto_increment' => TRUE
-		),
-		'name' => array(
-			'type' => 'VARCHAR',
-			'constraint' => '255'
-		),
-		'slug' => array(
-			'type' => 'VARCHAR',
-			'constraint' => '255'
-		),
-		'description' => array(
-			'type' => 'TEXT'
-		),
-	);
-	
-	$specials_x_products = array(
-        'id' => array(
-			'type' => 'INT',
-			'constraint' => '11',
-			'auto_increment' => TRUE
-		),
-		'special' => array(
-			'type' => 'INT',
-			'constraint' => '11',
-			'null' => TRUE
-		),
-		'product' => array(
-			'type' => 'INT',
-			'constraint' => '11',
-			'null' => TRUE
-		),
-		'old_price' => array(
-			'type' => 'FLOAT',
-			'constraint' => '8,2',
-			'null' => TRUE
-		),
-		'new_price' => array(
-			'type' => 'FLOAT',
-			'constraint' => '8,2',
-			'null' => TRUE
-		),
-	);
-	
-	$fields = array(
-        'id' => array(
-			'type' => 'INT',
-			'constraint' => '11',
-			'auto_increment' => TRUE
-		),
-		'name' => array(
-			'type' => 'VARCHAR',
-			'constraint' => '255'
-		),
-		'slug' => array(
-			'type' => 'VARCHAR',
-			'constraint' => '255'
-		),
-		'type' => array(
-			'type' => 'VARCHAR',
-			'constraint' => '255'
-		),
-		'order' => array(
-			'type' => 'INT',
-			'constraint' => '11'
-		),
-	);
-	
-	$products_x_fields = array(
-        'id' => array(
-			'type' => 'INT',
-			'constraint' => '11',
-			'auto_increment' => TRUE
-		),
-		'product' => array(
-			'type' => 'INT',
-			'constraint' => '11'
-		),
-		'field' => array(
-			'type' => 'INT',
-			'constraint' => '11'
-		),
-		'value' => array(
-			'type' => 'VARCHAR',
-			'constraint' => '255'
-		)
 	);
 	
 	$thumbnail_width = array(
@@ -251,52 +149,9 @@ public function install()
 		'module' => 'products'
 	);
 	
-	$this->dbforge->add_field($specials);
-	$this->dbforge->add_key('id', TRUE);
-
-	if ( ! $this->dbforge->create_table('specials'))
+	if ( ! $this->install_tables($tables))
 	{
-		return FALSE;
-	}
-	
-	$this->dbforge->add_field($products);
-	$this->dbforge->add_key('id', TRUE);
-	
-	if ( ! $this->dbforge->create_table('products'))
-	{
-		return FALSE;
-	}
-	
-	$this->dbforge->add_field($categories);
-	$this->dbforge->add_key('id', TRUE);
-	
-	if ( ! $this->dbforge->create_table('categories'))
-	{
-		return FALSE;
-	}
-	
-	$this->dbforge->add_field($specials_x_products);
-	$this->dbforge->add_key('id', TRUE);
-	
-	if ( ! $this->dbforge->create_table('specials_x_products'))
-	{
-		return FALSE;
-	}
-	
-	$this->dbforge->add_field($fields);
-	$this->dbforge->add_key('id', TRUE);
-	
-	if ( ! $this->dbforge->create_table('fields'))
-	{
-		return FALSE;
-	}
-	
-	$this->dbforge->add_field($products_x_fields);
-	$this->dbforge->add_key('id', TRUE);
-	
-	if ( ! $this->dbforge->create_table('products_x_fields'))
-	{
-		return FALSE;
+		return false;
 	}
 	
 	if( ! $this->db->insert('settings', $thumbnail_width))

@@ -22,12 +22,11 @@ $lang['specials:specials']		=	'Aanbiedingen';
 $lang['specials:add_product']	=	'Voeg product toe';
 $lang['specials:edit_product']	=	'Wijzig product';
 
-// Tabs
-$lang['specials:label']		=	'Aanbiedingen';
-$lang['products:label']		=	'Producten';
-$lang['categories:label']	=	'Categorieën';
-
 // Form
 $lang['specials:content_label']		=	'Aanbieding';
 $lang['specials:products_label']	=	'Producten';
+
+// Frontend
+$lang['specials:view_archive']	=	'Bekijk archief';
+$lang['specials:view_current']	=	'Bekijk huidige aanbiedingen';
 ?>

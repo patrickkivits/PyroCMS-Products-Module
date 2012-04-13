@@ -15,7 +15,7 @@ class Admin_fields extends Admin_Controller
 	{
 		parent::__construct();
 
-		$this->load->model('fields_m');
+		$this->load->model('custom_fields_m');
 		$this->load->library('form_validation');
 		$this->lang->load('general');
 		$this->lang->load('fields');
@@ -34,19 +34,21 @@ class Admin_fields extends Admin_Controller
 		);
 
 		$this->template
-			->append_metadata(js('jquery.min.js', $this->module))
-			->append_metadata(js('jquery.ui.js', $this->module))
-			->append_metadata(js('admin.js', $this->module))
-			->append_metadata(css('admin.css', $this->module));
+			->append_js('module::jquery.min.js')
+			->append_js('module::jquery.ui.js')
+			->append_js('module::jquery.cookie.js')
+			->append_js('module::admin.js')
+			->append_css('module::admin.css');
 	}
 
 	public function index()
 	{
-		$items = $this->fields_m->get_all();
+		$items = $this->custom_fields_m->get_all();
 
-		$this->data->items =& $items;
-		$this->template->title($this->module_details['name'])
-			->build('admin/fields/items', $this->data);
+		$this->template
+			->title($this->module_details['name'])
+			->set('items', $items)
+			->build('admin/fields/items');
 	}
 
 	public function create()
@@ -55,7 +57,7 @@ class Admin_fields extends Admin_Controller
 
 		if($this->form_validation->run())
 		{
-			if($this->fields_m->create($this->input->post()))
+			if($this->custom_fields_m->create($this->input->post()))
 			{
 				$this->session->set_flashdata('success', lang('general:success'));
 				redirect('admin/'.$this->module.'/fields');
@@ -71,25 +73,20 @@ class Admin_fields extends Admin_Controller
 		{
 			$fields->{$rule['field']} = $this->input->post($rule['field']);
 		}
-		
-		$this->data->fields =& $fields;
 
-		$this->template->title($this->module_details['name'], lang('fields:create'))
+		$this->template
+			->title($this->module_details['name'], lang('fields:create'))
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-			->append_metadata( js('form.js', $this->module) )
-			->build('admin/fields/form', $this->data);
+			->set('fields', $fields)
+			->build('admin/fields/form');
 	}
 	
 	public function edit($id = 0)
 	{
 		$id = $this->uri->segment(5);
-		$fields = $this->fields_m->get($id);
+		$id or redirect('admin/'.$this->module);
 		
-		if ( ! $fields)
-		{
-			$this->session->set_flashdata('error', lang('pages_page_not_found_error'));
-			redirect('admin/'.$this->module.'/fields/create');
-		}
+		$fields = $this->custom_fields_m->get($id);
 
 		$this->form_validation->set_rules($this->item_validation_rules);
 
@@ -97,7 +94,7 @@ class Admin_fields extends Admin_Controller
 		{
 			unset($_POST['btnAction']);
 			
-			if($this->fields_m->update($id, $this->input->post()))
+			if($this->custom_fields_m->update($id, $this->input->post()))
 			{
 				$this->session->set_flashdata('success', lang('general:success'));
 				redirect('admin/'.$this->module.'/fields');
@@ -109,29 +106,30 @@ class Admin_fields extends Admin_Controller
 			}
 		}
 		
-		$this->data->fields =& $fields;
-		
-		$this->template->title($this->module_details['name'], lang('fields:edit'))
+		$this->template
+			->title($this->module_details['name'], lang('fields:edit'))
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-			->append_metadata( js('form.js', $this->module) )
-			->build('admin/fields/form', $this->data);
+			->set('fields', $fields)
+			->build('admin/fields/form');
 	}
 	
 	public function delete($id = 0)
 	{
 		if (isset($_POST['btnAction']) AND is_array($_POST['action_to']))
 		{
-			$this->fields_m->delete_many($this->input->post('action_to'));
+			$this->custom_fields_m->delete_many($this->input->post('action_to'));
 		}
 		elseif (is_numeric($id))
 		{
-			$this->fields_m->delete($id);
+			$this->custom_fields_m->delete($id);
 		}
 		redirect('admin/'.$this->module.'/fields');
 	}
 	
 	public function order()
 	{
-		$this->fields_m->order($this->input->post('order'));
+		if($this->input->is_ajax_request()) {
+			$this->custom_fields_m->order($this->input->post('order'));
+		}
 	}
 }

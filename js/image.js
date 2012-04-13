@@ -27,6 +27,7 @@ $(document).ready(function() {
 			$.post(SITE_URL + 'admin/products/ajax_delete_image/', {
 				thumbnail: $('input[name="thumbnail"]').val(),
 				image: $('input[name="image"]').val(),
+				csrf_hash_name: $.cookie("csrf_cookie_name")
 			},
 			function(data) {});
 			
@@ -42,6 +43,7 @@ $(document).ready(function() {
 			$.post(SITE_URL + 'admin/products/ajax_delete_image/', {
 				thumbnail: $('input[name="thumbnail"]').val(),
 				image: $('input[name="image"]').val(),
+				csrf_hash_name: $.cookie("csrf_cookie_name")
 			},
 			function(data) {
 				
