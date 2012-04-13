@@ -7,7 +7,7 @@
  * @package 	PyroCMS
  * @subpackage 	Products Module
  */
-class Fields_m extends MY_Model {
+class Custom_fields_m extends MY_Model {
 
 	public function __construct()
 	{		

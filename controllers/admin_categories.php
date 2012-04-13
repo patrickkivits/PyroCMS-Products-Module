@@ -32,18 +32,16 @@ class Admin_categories extends Admin_Controller
 				'rules' => 'trim'
 			)
 		);
-
-		$this->template->append_metadata(js('admin.js', $this->module))
-			->append_metadata(css('admin.css', $this->module));
 	}
 
 	public function index()
 	{
 		$items = $this->categories_m->get_all();
 
-		$this->data->items =& $items;
-		$this->template->title($this->module_details['name'])
-			->build('admin/categories/items', $this->data);
+		$this->template
+			->title($this->module_details['name'])
+			->set('items', $items)
+			->build('admin/categories/items');
 	}
 
 	public function create()
@@ -68,25 +66,20 @@ class Admin_categories extends Admin_Controller
 		{
 			$categories->{$rule['field']} = $this->input->post($rule['field']);
 		}
-		
-		$this->data->categories =& $categories;
 
-		$this->template->title($this->module_details['name'], lang('categories:create'))
+		$this->template
+			->title($this->module_details['name'], lang('categories:create'))
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-			->append_metadata( js('form.js', $this->module) )
-			->build('admin/categories/form', $this->data);
+			->set('categories', $categories)
+			->build('admin/categories/form');
 	}
 	
 	public function edit($id = 0)
 	{
 		$id = $this->uri->segment(5);
-		$categories = $this->categories_m->get($id);
+		$id or redirect('admin/'.$this->module);
 		
-		if ( ! $categories)
-		{
-			$this->session->set_flashdata('error', lang('pages_page_not_found_error'));
-			redirect('admin/'.$this->module.'/categories/create');
-		}
+		$categories = $this->categories_m->get($id);
 
 		$this->form_validation->set_rules($this->item_validation_rules);
 
@@ -106,12 +99,11 @@ class Admin_categories extends Admin_Controller
 			}
 		}
 		
-		$this->data->categories =& $categories;
-		
-		$this->template->title($this->module_details['name'], lang('categories:edit'))
+		$this->template
+			->title($this->module_details['name'], lang('categories:edit'))
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-			->append_metadata( js('form.js', $this->module) )
-			->build('admin/categories/form', $this->data);
+			->set('categories', $categories)
+			->build('admin/categories/form');
 	}
 	
 	public function delete($id = 0)

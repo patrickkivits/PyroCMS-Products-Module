@@ -15,7 +15,7 @@ $(document).ready(function() {
 		$.ajax({
 		  type: "POST",
 		  url: SITE_URL + "admin/products/fields/order",
-		  data: {order: order},
+		  data: {order: order, csrf_hash_name: $.cookie("csrf_cookie_name")},
 		});																 
 	}								  
 	}).disableSelection();

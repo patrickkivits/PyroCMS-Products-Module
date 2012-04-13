@@ -4,7 +4,7 @@
 
 <section class="item">
 	<?php echo form_open('admin/products/delete');?>
-	<?php if (!empty($specials)): ?>
+	<?php if (!empty($items)): ?>
 	
 		<table>
 			<thead>
@@ -24,7 +24,7 @@
 				</tr>
 			</tfoot>
 			<tbody>
-				<?php foreach( $specials as $item ): ?>
+				<?php foreach( $items as $item ): ?>
 				<tr>
 					<td><?php echo form_checkbox('action_to[]', $item->id); ?></td>
 					<td><?php echo $item->name; ?></td>

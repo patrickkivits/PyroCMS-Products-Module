@@ -56,18 +56,16 @@ class Admin_specials extends Admin_Controller
 				'rules' => 'trim'
 			)
 		);
-
-		$this->template->append_metadata(js('admin.js', $this->module))
-			->append_metadata(css('admin.css', $this->module));
 	}
 
 	public function index()
 	{
-		$specials = $this->specials_m->get_all();
+		$items = $this->specials_m->get_all();
 
-		$this->data->specials =& $specials;
-		$this->template->title($this->module_details['name'])
-			->build('admin/specials/items', $this->data);
+		$this->template
+			->title($this->module_details['name'])
+			->set('items', $items)
+			->build('admin/specials/items');
 	}
 
 	public function create()
@@ -93,54 +91,62 @@ class Admin_specials extends Admin_Controller
 			$specials->{$rule['field']} = $this->input->post($rule['field']);
 		}
 		
-		$this->data->products = $this->specials_m->get_products();
-		
-		$this->data->specials =& $specials;
+		$products = $this->specials_m->get_products();
 
-		$this->template->title($this->module_details['name'], lang('specials:create'))
+		$this->template
+			->title($this->module_details['name'], lang('specials:create'))
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-			->append_metadata( js('form.js', $this->module) )
-			->append_metadata( js('specials.js', $this->module) )
+			->append_js('module::jquery.cookie.js')
+			->append_js('module::form.js')
+			->append_js('module::specials.js')
+			->set('products', $products)
+			->set('specials', $specials)
 			->build('admin/specials/form', $this->data);
 	}
 	
 	public function ajax_add_product()
 	{
-		$this->specials_m->add_product($this->input->post());
+		if($this->input->is_ajax_request()) {
+			$this->specials_m->add_product($this->input->post());
+		}
 	}
 	
 	public function ajax_edit_product()
 	{
-		$this->specials_m->edit_product($this->input->post());
+		if($this->input->is_ajax_request()) {
+			$this->specials_m->edit_product($this->input->post());
+		}
 	}
 	
 	public function ajax_delete_product()
 	{
-		$this->specials_m->delete_product($this->input->post());
+		if($this->input->is_ajax_request()) {
+			$this->specials_m->delete_product($this->input->post());
+		}
 	}
 	
 	public function ajax_get_products()
 	{
-		$this->data->products = $this->specials_m->get_special_products($this->uri->segment(5));
-		$this->load->view('admin/specials/ajax/products', $this->data);	
+		if($this->input->is_ajax_request()) {
+			$data['products'] = $this->specials_m->get_special_products($this->uri->segment(5));
+			$this->load->view('admin/specials/ajax/products', $data);	
+		}
 	}
 	
 	public function ajax_get_special_product()
 	{
-		$this->data->products = $this->specials_m->get_special_product($this->input->get('id'));
-		echo(json_encode($this->data->products));
+		if($this->input->is_ajax_request()) {
+			$this->data->products = $this->specials_m->get_special_product($this->input->get('id'));
+			echo(json_encode($this->data->products));
+		}
 	}
 	
 	public function edit($id = 0)
 	{
 		$id = $this->uri->segment(5);
-		$specials = $this->specials_m->get($id);
+		$id or redirect('admin/'.$this->module);
 		
-		if ( ! $specials)
-		{
-			$this->session->set_flashdata('error', lang('pages_page_not_found_error'));
-			redirect('admin/'.$this->module.'/specials/create');
-		}
+		$specials = $this->specials_m->get($id);
 
 		$this->form_validation->set_rules($this->item_validation_rules);
 
@@ -163,14 +169,15 @@ class Admin_specials extends Admin_Controller
 		$specials->old_price = $this->input->post('old_price');
 		$specials->new_price = $this->input->post('new_price');
 		
-		$this->data->products =& $this->specials_m->get_products();
-		
-		$this->data->specials =& $specials;
+		$products = $this->specials_m->get_products();
 		
 		$this->template->title($this->module_details['name'], lang('specials:edit'))
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-			->append_metadata( js('form.js', $this->module) )
-			->append_metadata( js('specials.js', $this->module) )
+			->append_js('module::jquery.cookie.js')
+			->append_js('module::form.js')
+			->append_js('module::specials.js')
+			->set('products', $products)
+			->set('specials', $specials)
 			->build('admin/specials/form', $this->data);
 	}
 	

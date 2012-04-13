@@ -83,10 +83,10 @@
                             <a id="delete-image-button" class="btn red" href="#"><?php echo lang('products:delete_image'); ?></a>
                         </div>
                         <div style="float: left;">
-							<form action="<?php echo base_url().'index.php/admin/'.$this->module.'/ajax_upload_image'?>" method="post" enctype="multipart/form-data" id="ajax-form-upload">
+                        	<?php echo form_open_multipart(base_url().'index.php/admin/'.$this->module.'/ajax_upload_image', 'id="ajax-form-upload"'); ?>
                                 <input type="file" name="file"><br />
                                 <input type="submit" value="<?php echo lang('products:upload_image'); ?>">
-                            </form>
+                            <?php echo form_close(); ?>
                             
                             <div class="progress">
                                 <div class="bar"></div >
